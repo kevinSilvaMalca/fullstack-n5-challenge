@@ -22,14 +22,14 @@ builder.Services.AddSingleton<IProducer<Null, string>>(provider =>
 {
     var config = new ProducerConfig
     {
-        BootstrapServers = builder.Configuration["localhost:BootstrapServers"] ?? "localhost:9092"
+        BootstrapServers = builder.Configuration["kafka:BootstrapServers"] ?? "localhost:9092"
     };
     return new ProducerBuilder<Null, string>(config).Build();
 });
 
 builder.Services.AddSingleton<IElasticLowLevelClient>(provider =>
 {
-    var settings = new ConnectionConfiguration(new Uri("http://localhost:9200"));
+    var settings = new ConnectionConfiguration(new Uri("http://elasticsearch:9200"));
     return new ElasticLowLevelClient(settings);
 });
 
